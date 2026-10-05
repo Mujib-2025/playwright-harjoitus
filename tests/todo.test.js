@@ -85,3 +85,19 @@ test("kaks tehtävii vois lisätä peräkkäin ja vahvistusviesti näky", async 
 
   await expect(page.getByText("Tehtävä lisätty.")).toBeVisible();
 });
+
+test("tehtävän voi siis poistaa poista painikkeella", async ({ page }) => {
+  await page.goto("http://localhost:3000");
+
+  await page.getByLabel("uus tehtävä").fill("Osta kahvia");
+  await page.getByRole("button", { name: "Äddä" }).click();
+
+  const taskItem = page
+    .getByRole("listitem")
+    .filter({ hasText: "Osta kahvia" });
+  await expect(taskItem).toBeVisible();
+
+  await taskItem.getByRole("button", { name: "Poista" }).click();
+
+  await expect(taskItem).toHaveCount(0);
+});

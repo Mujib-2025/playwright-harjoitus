@@ -11,6 +11,13 @@ form.addEventListener("submit", (event) => {
   }
   const listItem = document.createElement("li");
   listItem.textContent = task;
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Poista";
+  deleteButton.addEventListener("click", () => {
+    listItem.remove();
+  });
+
+  listItem.appendChild(deleteButton);
   taskList.appendChild(listItem);
   message.textContent = "Tehtävä lisätty.";
   taskInput.value = "";
